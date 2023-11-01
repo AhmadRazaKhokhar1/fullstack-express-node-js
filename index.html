@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Full Stack Form</title>
+</head>
+<body>
+    <center>
+
+        <form onsubmit="addUser(); return flase; " id="form" style="display: flex; flex-direction: column; width: 50vw; margin: auto; border: 1px solid grey; border-radius: 12px; padding: 15px;">
+            <label for="User Name">Name:</label> <input type="text" name="User Name" id="userName" class="input" autocomplete="address-line1"  required>
+            <label for="User Company">Company:</label> <input type="text" name="User Company" id="userCompany" class="input" autocomplete="address-line2"  required>
+            <label for="User Age">Age:</label> <input type="number" name="User Age" id="userAge" class="input" autocomplete="address-line3"  required>
+            <label for="User Password">Password:</label> <input type="password" name="User Password" id="userPass" class="input" autocomplete="new-password" required>  
+
+            <button type="submit" class="sub">Sign Up</button>
+
+        </form>
+        <button class="getRes" type="button" onclick="showUsers()"><b>Get All User</b></button>
+
+        <div id="message"></div>
+        <div id="allUsers"></div>
+<script>
+        const addUser = () =>{
+       
+        const form =document.getElementById('form');
+
+           const name = document.getElementById('userName').value;
+           const company = document.getElementById('userCompany').value;
+           const age = document.getElementById('userAge').value;
+           const pass = document.getElementById('userPass').value;
+
+           
+
+           axios.post('http://localhost:500/user', {
+            
+            name: name,
+            company:company,
+            age: age,
+            pass: pass,
+           
+           })
+
+ .then(response=>{
+   console.log(response.data);
+   document.getElementById('message').innerHTML = response.data
+           })
+
+ .catch(error=> {
+              console.log('error:', error)
+           })
+        }
+
+
+        function showUsers(){
+
+            axios.get('http://localhost:500/user')
+
+            .then(response=>{
+                const users = response.data
+               users.forEach(user=>{
+                    response.data.map(eachUser=>{
+                        document.getElementById('allUsers').innerHTML += `<br><div class='output'>   <b>${eachUser.name}</b> <br> <b>${eachUser.company}</b>  <br> <b>${eachUser.age}</b>  <br> <b>${eachUser.pass}</b> </div> <br>`
+                    })
+
+
+                })
+
+                .catch(error =>{
+                    console.log('error:', error)
+                })
+            })
+        }
+        showUsers();
+
+
+
+</script>
+    </center>
+
+    <script src="./index.mjs"></script>
+</body>
+</html>

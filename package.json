@@ -1,0 +1,17 @@
+{
+  "name": "port",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "lite-server ./index.mjs",
+    "dev": "lite-server ./index.mjs"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "cors": "^2.8.5",
+    "lite-server": "^2.6.1"
+  }
+}
